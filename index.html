@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ИИ в дизайне — Ирина</title>
+<meta name="description" content="Материалы курса «ИИ в дизайне» для Ирины" />
+<style>
+  :root {
+    --bg-start: #f7f6f2;
+    --bg-end: #efece6;
+    --card: #ffffff;
+    --ink: #1f2330;
+    --ink-soft: #4a5168;
+    --ink-mute: #6b7080;
+    --accent: #5b2c8a;
+    --accent-2: #7c4fc7;
+    --accent-soft: #efe6fb;
+    --border: #e3e2dd;
+    --good: #1d7a3a;
+    --warn: #b3590b;
+    --shadow: 0 6px 24px rgba(20, 10, 40, 0.06);
+    --radius: 14px;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Inter', Helvetica, Arial, sans-serif;
+    color: var(--ink);
+    background: linear-gradient(180deg, var(--bg-start) 0%, var(--bg-end) 100%);
+    min-height: 100vh;
+    line-height: 1.55;
+  }
+
+  /* === Password gate === */
+  .gate {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  .gate-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 36px 32px;
+    max-width: 380px;
+    width: 100%;
+    text-align: center;
+  }
+  .gate-icon {
+    width: 56px; height: 56px;
+    border-radius: 14px;
+    margin: 0 auto 18px;
+    background: var(--accent-soft);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent);
+    font-size: 28px;
+  }
+  .gate-title {
+    font-size: 19px;
+    font-weight: 600;
+    margin: 0 0 6px;
+    color: var(--ink);
+  }
+  .gate-sub {
+    font-size: 14px;
+    color: var(--ink-soft);
+    margin: 0 0 22px;
+  }
+  .gate-form {
+    display: flex;
+    gap: 8px;
+  }
+  .gate-input {
+    flex: 1;
+    padding: 11px 14px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-size: 15px;
+    font-family: inherit;
+    outline: none;
+    transition: border-color .15s;
+  }
+  .gate-input:focus { border-color: var(--accent); }
+  .gate-btn {
+    padding: 11px 18px;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background .15s;
+  }
+  .gate-btn:hover { background: var(--accent-2); }
+  .gate-error {
+    margin-top: 12px;
+    font-size: 13px;
+    color: #b3261e;
+    min-height: 18px;
+  }
+
+  /* === Main content === */
+  .page { display: none; max-width: 980px; margin: 0 auto; padding: 32px 24px 80px; }
+
+  .hero {
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+    color: #fff;
+    border-radius: var(--radius);
+    padding: 36px 32px;
+    box-shadow: var(--shadow);
+    margin-bottom: 28px;
+  }
+  .hero h1 {
+    margin: 0 0 8px;
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  .hero .meta {
+    margin: 0;
+    opacity: 0.9;
+    font-size: 15px;
+  }
+  .hero .meta + .meta { margin-top: 4px; }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+  .stat {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 16px;
+  }
+  .stat-num { font-size: 22px; font-weight: 700; color: var(--accent); }
+  .stat-lbl { font-size: 13px; color: var(--ink-soft); margin-top: 2px; }
+
+  .section-title {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-mute);
+    margin: 0 0 12px;
+    font-weight: 600;
+  }
+
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 22px;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+  }
+  .card.program {
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+    color: #fff;
+    border: none;
+  }
+  .card.program .card-title { color: #fff; }
+  .card.program .card-desc { opacity: 0.92; }
+  .card.program .card-link { background: rgba(255,255,255,0.18); color: #fff; border: 1px solid rgba(255,255,255,0.3); }
+  .card.program .card-link:hover { background: rgba(255,255,255,0.28); }
+
+  .card-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 10px;
+    align-self: flex-start;
+  }
+  .card.program .card-badge { background: rgba(255,255,255,0.22); color: #fff; }
+
+  .card-title {
+    font-size: 17px;
+    font-weight: 600;
+    margin: 0 0 6px;
+    color: var(--ink);
+  }
+  .card-date {
+    font-size: 13px;
+    color: var(--ink-mute);
+    margin: 0 0 10px;
+  }
+  .card-desc {
+    font-size: 14px;
+    color: var(--ink-soft);
+    margin: 0 0 16px;
+    flex-grow: 1;
+  }
+  .card-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    border-radius: 8px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    border: 1px solid transparent;
+    transition: background .15s;
+  }
+  .card-link:hover { background: var(--accent); color: #fff; }
+  .card-link.disabled {
+    background: #f3f2ee;
+    color: var(--ink-mute);
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  .footer {
+    margin-top: 32px;
+    padding-top: 22px;
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--ink-mute);
+    text-align: center;
+  }
+
+  @media (max-width: 540px) {
+    .hero { padding: 26px 20px; }
+    .hero h1 { font-size: 21px; }
+    .gate-card { padding: 28px 20px; }
+    .gate-form { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ========== Password gate ========== -->
+<div class="gate" id="gate">
+  <div class="gate-card">
+    <div class="gate-icon" aria-hidden="true">🔒</div>
+    <h2 class="gate-title">Введите пароль</h2>
+    <p class="gate-sub">Материалы курса «ИИ в дизайне»</p>
+    <form class="gate-form" id="gateForm" autocomplete="off">
+      <input class="gate-input" type="password" id="gateInput" placeholder="Пароль" required />
+      <button class="gate-btn" type="submit">Войти</button>
+    </form>
+    <div class="gate-error" id="gateError"></div>
+  </div>
+</div>
+
+<!-- ========== Page content ========== -->
+<main class="page" id="page">
+
+  <section class="hero">
+    <h1>ИИ в дизайне: от хаоса к системе</h1>
+    <p class="meta">Программа обучения для Ирины</p>
+    <p class="meta">3 занятия · 120 минут · индивидуальный формат</p>
+  </section>
+
+  <div class="stats">
+    <div class="stat"><div class="stat-num">3</div><div class="stat-lbl">занятия</div></div>
+    <div class="stat"><div class="stat-num">1</div><div class="stat-lbl">завершено</div></div>
+    <div class="stat"><div class="stat-num">2</div><div class="stat-lbl">запланировано</div></div>
+    <div class="stat"><div class="stat-num">6 ч</div><div class="stat-lbl">общий хронометраж</div></div>
+  </div>
+
+  <p class="section-title">Программа курса</p>
+  <div class="cards">
+    <div class="card program">
+      <span class="card-badge">Документ</span>
+      <h3 class="card-title">Программа обучения</h3>
+      <p class="card-desc">Структура курса, цели по занятиям, стек инструментов, ожидаемые результаты.</p>
+      <div class="card-links">
+        <a class="card-link" href="https://docs.google.com/document/d/1k8lgEX8OGEfotd17BKV1_WqliRzYck2YHc0CAEv1E9o/edit?usp=sharing" target="_blank" rel="noopener">📄 Открыть программу</a>
+      </div>
+    </div>
+  </div>
+
+  <p class="section-title">Занятия</p>
+  <div class="cards">
+
+    <div class="card">
+      <span class="card-badge">Завершено</span>
+      <h3 class="card-title">Занятие 1 — Системный промпт и базовый стек</h3>
+      <p class="card-date">12 октября 2026, 20:00–22:00</p>
+      <p class="card-desc">Системный промпт для дизайнера, разбор её стека (Songly, Nano Banana через syntx.ai, GigaChat), inpaint / outpaint / upscale, выбор моделей для драфтов и продакшена.</p>
+      <div class="card-links">
+        <a class="card-link" href="https://disk.yandex.ru/i/-H1pYKD-y93yRQ" target="_blank" rel="noopener">🎬 Видео</a>
+        <a class="card-link" href="https://docs.google.com/document/d/1kbRV557nxwYOxo81smNRad6EHTD4LDAiv0sKTq6u9bY/edit?usp=sharing" target="_blank" rel="noopener">📄 Конспект</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    Материалы обновляются после каждого занятия.<br>
+    По вопросам — в Telegram.
+  </div>
+
+</main>
+
+<script>
+  (function () {
+    var PASSWORD = 'ai2026';
+    var gate = document.getElementById('gate');
+    var page = document.getElementById('page');
+    var form = document.getElementById('gateForm');
+    var input = document.getElementById('gateInput');
+    var err = document.getElementById('gateError');
+
+    function unlock() {
+      gate.style.display = 'none';
+      page.style.display = 'block';
+      try { sessionStorage.setItem('irina_ai2026_ok', '1'); } catch (e) {}
+    }
+
+    if (sessionStorage.getItem('irina_ai2026_ok') === '1') {
+      unlock();
+    }
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (input.value === PASSWORD) {
+        unlock();
+      } else {
+        err.textContent = 'Неверный пароль';
+        input.value = '';
+        input.focus();
+      }
+    });
+
+    input.focus();
+  })();
+</script>
+
+</body>
+</html>
